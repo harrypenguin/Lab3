@@ -64,7 +64,7 @@ public class CountryCodeConverter {
     public String fromCountry(String country) {
         for (Map.Entry<String, String> entry : codeToCountry.entrySet()) {
             if (entry.getValue().equalsIgnoreCase(country)) {
-                return entry.getKey();
+                return entry.getKey().toLowerCase();
             }
         }
         return null;

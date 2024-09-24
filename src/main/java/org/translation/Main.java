@@ -37,15 +37,17 @@ public class Main {
     public static void runProgram(Translator translator) {
         while (true) {
             String country = promptForCountry(translator);
+            String countryCode = COUNTRY_CODE_CONVERTER.fromCountry(country);
             String quit = "quit";
             if (country.equals(quit)) {
                 break;
             }
-            String language = promptForLanguage(translator, COUNTRY_CODE_CONVERTER.fromCountry(country));
+            String language = promptForLanguage(translator, countryCode);
             if (language.equals(quit)) {
                 break;
             }
-            System.out.println(country + " in " + language + " is " + translator.translate(country, language));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode,
+                    LANGUAGE_CODE_CONVERTER.fromLanguage(language)));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();

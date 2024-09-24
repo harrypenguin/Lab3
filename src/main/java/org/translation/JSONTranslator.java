@@ -52,10 +52,7 @@ public class JSONTranslator implements Translator {
                 countries.add(countryName);
                 Map<String, String> countryNamesTranslated = new HashMap<>();
                 for (String name : country.keySet()) {
-                    if ("id".equals(name) || "alpha2".equals(name) || "alpha3".equals(name)) {
-                        ;
-                    }
-                    else {
+                    if (!("id".equals(name) || "alpha2".equals(name) || "alpha3".equals(name))) {
                         countryNamesTranslated.put(name, country.getString(name));
                     }
                 }
@@ -81,8 +78,6 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        CountryCodeConverter converter = new CountryCodeConverter();
-        String code = converter.fromCountry(country).toLowerCase();
-        return data.get(code).get(language);
+        return data.get(country).get(language);
     }
 }

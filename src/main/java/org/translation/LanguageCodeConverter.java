@@ -65,7 +65,7 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         for (Map.Entry<String, String> entry : codesToLanguage.entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(language)) {
+            if (entry.getValue().equals(language)) {
                 return entry.getKey();
             }
         }
