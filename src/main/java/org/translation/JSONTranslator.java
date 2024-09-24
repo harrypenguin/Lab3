@@ -67,8 +67,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        String lcountry = country.toLowerCase();
-        return new ArrayList<>(data.get(lcountry).keySet());
+        return new ArrayList<>(data.get(country.toLowerCase()).keySet());
     }
 
     @Override
