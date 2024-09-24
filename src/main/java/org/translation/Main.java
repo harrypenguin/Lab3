@@ -1,7 +1,6 @@
 package org.translation;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Main class for this program.
@@ -13,6 +12,9 @@ import java.util.Scanner;
  * - at any time, the user can type quit to quit the program<br/>
  */
 public class Main {
+    private static CountryCodeConverter countryConverter = new CountryCodeConverter();
+    private static LanguageCodeConverter languageConverter = new LanguageCodeConverter();
+
 
     /**
      * This is the main entry point of our Translation System!<br/>
@@ -37,12 +39,11 @@ public class Main {
             if (country.equals(quit)) {
                 break;
             }
-            String language = promptForLanguage(translator, CountryCodeConverter.fromCountry(country));
+            String language = promptForLanguage(translator, countryConverter.fromCountry(country));
             if (language.equals(quit)) {
                 break;
             }
-            System.out.println(country + " in " + language + " is " + translator.translate(country,
-                    LanguageCodeConverter.fromLanguage(language)));
+            System.out.println(country + " in " + language + " is " + translator.translate(country, language));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -56,9 +57,12 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
-        countries.replaceAll(CountryCodeConverter::fromCountryCode);
-        countries.sort(null);
-        countries.forEach(System.out::println);
+        List<String> countryNames = new ArrayList<>();
+        for (String code : countries) {
+            countryNames.add(countryConverter.fromCountryCode(code));
+        }
+        Collections.sort(countryNames);
+        countryNames.forEach(System.out::println);
 
         System.out.println("select a country from above:");
 
@@ -70,11 +74,9 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
         List<String> languages = translator.getCountryLanguages(country);
-        languages.replaceAll(LanguageCodeConverter::fromLanguageCode);
-        languages.sort(null);
+        languages.replaceAll(languageConverter::fromLanguageCode);
+        Collections.sort(languages);
         languages.forEach(System.out::println);
-        System.out.println(translator.getCountryLanguages(country));
-
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);

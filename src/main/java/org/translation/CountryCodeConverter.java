@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    private Map<String, String> codeToCountry;
+    private static Map<String, String> codeToCountry;
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -28,6 +29,7 @@ public class CountryCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public CountryCodeConverter(String filename) {
+        codeToCountry = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
@@ -51,7 +53,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return codeToCountry.get(code);
+        return codeToCountry.get(code.toUpperCase());
     }
 
     /**

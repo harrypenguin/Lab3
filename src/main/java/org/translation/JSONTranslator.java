@@ -52,8 +52,8 @@ public class JSONTranslator implements Translator {
                 countries.add(countryName);
                 Map<String, String> countryNamesTranslated = new HashMap<>();
                 for (String name : country.keySet()) {
-                    if ("id".equals(name)) {
-                        System.out.println("s");
+                    if ("id".equals(name) || "alpha2".equals(name) || "alpha3".equals(name)) {
+                        ;
                     }
                     else {
                         countryNamesTranslated.put(name, country.getString(name));
@@ -70,7 +70,8 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        return new ArrayList<>(data.keySet());
+        String lcountry = country.toLowerCase();
+        return new ArrayList<>(data.get(lcountry).keySet());
     }
 
     @Override
@@ -80,6 +81,8 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        return data.get(country).get(language);
+        CountryCodeConverter converter = new CountryCodeConverter();
+        String code = converter.fromCountry(country).toLowerCase();
+        return data.get(code).get(language);
     }
 }

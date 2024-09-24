@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    private Map<String, String> codesToLanguage;
+    private static Map<String, String> codesToLanguage;
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
