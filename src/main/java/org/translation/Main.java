@@ -15,8 +15,8 @@ import java.util.Scanner;
  * - at any time, the user can type quit to quit the program<br/>
  */
 public class Main {
-    private static CountryCodeConverter countryConverter = new CountryCodeConverter();
-    private static LanguageCodeConverter languageConverter = new LanguageCodeConverter();
+    private static final CountryCodeConverter COUNTRY_CODE_CONVERTER = new CountryCodeConverter();
+    private static final LanguageCodeConverter LANGUAGE_CODE_CONVERTER = new LanguageCodeConverter();
 
     /**
      * This is the main entry point of our Translation System!<br/>
@@ -41,7 +41,7 @@ public class Main {
             if (country.equals(quit)) {
                 break;
             }
-            String language = promptForLanguage(translator, countryConverter.fromCountry(country));
+            String language = promptForLanguage(translator, COUNTRY_CODE_CONVERTER.fromCountry(country));
             if (language.equals(quit)) {
                 break;
             }
@@ -61,7 +61,7 @@ public class Main {
         List<String> countries = translator.getCountries();
         List<String> countryNames = new ArrayList<>();
         for (String code : countries) {
-            countryNames.add(countryConverter.fromCountryCode(code));
+            countryNames.add(COUNTRY_CODE_CONVERTER.fromCountryCode(code));
         }
         Collections.sort(countryNames);
         countryNames.forEach(System.out::println);
@@ -76,7 +76,7 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
         List<String> languages = translator.getCountryLanguages(country);
-        languages.replaceAll(languageConverter::fromLanguageCode);
+        languages.replaceAll(LANGUAGE_CODE_CONVERTER::fromLanguageCode);
         Collections.sort(languages);
         languages.forEach(System.out::println);
         System.out.println("select a language from above:");
