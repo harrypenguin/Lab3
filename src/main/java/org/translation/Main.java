@@ -15,7 +15,6 @@ public class Main {
     private static CountryCodeConverter countryConverter = new CountryCodeConverter();
     private static LanguageCodeConverter languageConverter = new LanguageCodeConverter();
 
-
     /**
      * This is the main entry point of our Translation System!<br/>
      * A class implementing the Translator interface is created and passed into a call to runProgram.
